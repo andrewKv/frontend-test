@@ -1,0 +1,22 @@
+.detail-container {
+  width: 30rem;
+  margin-left: 32px;
+  padding: 0 16px;
+  background: #ffffff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.row {
+  display: flex;
+  margin: 16px 0;
+}
+
+.row-title {
+  width: 8rem;
+  flex-shrink: 0;
+  font-weight: bold;
+}
+
+.product-image {
+  max-width: 100%;
+}
