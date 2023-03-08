@@ -11,17 +11,24 @@ export const Autocomplete = ({setProductShowing}:{setProductShowing: (product: P
 
 
   const setShowDetailedItem = useCallback(async (searchId: number) => {
+    setSuggestions([])
+    setSearchTerm("")
     const itemDetails = await fetchProductDetail(searchId);
     setProductShowing(itemDetails)
-  }, [searchTerm]);
+  }, [setProductShowing]);
 
   const loadSuggestions = useCallback(async () => {
     const response = await fetchSuggestions(searchTerm);
-    setSuggestions(response)
+    const top10Results = response.slice(0, 10)
+    setSuggestions(top10Results)
   }, [searchTerm]);
 
   useEffect(() => {
     const debouncedInput = setTimeout(() => {
+      if (searchTerm.length < 1){
+        setSuggestions([])
+        return
+      }
       loadSuggestions()
     }, 500);
 
@@ -40,7 +47,7 @@ export const Autocomplete = ({setProductShowing}:{setProductShowing: (product: P
       {suggestions.length > 0 && (
         <div className="suggestions-container">
           {suggestions.map((suggestion, index) => (
-            <button onClick={() => setShowDetailedItem(suggestion.id)} className="suggestion" key={`item-${index}`}>{suggestion.title} </button>
+            <button onClick={() => setShowDetailedItem(suggestion.id)} className="suggestion-item" key={`item-${index}`}>{suggestion.title} </button>
           ))}
         </div>
       )}

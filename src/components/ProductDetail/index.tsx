@@ -1,26 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { ProductDetail } from "../../types";
 
 import "./styles.css";
 
+// mobile
+// tests
+
 export const ProductCard = ({ product }: {product: ProductDetail})  => {
-  console.log(product)
+  const formattedPrice = product.price.toLocaleString('en-UK', {style: 'currency', currency: 'GBP'});
+  const [expandedDescription, setExpandedDescription] = useState<boolean>(false);
+  const showMore = () => {
+    setExpandedDescription(!expandedDescription)
+  }
+
   return (
       <div className="detail-container">
-        <div className="row">
-          <img src={product.image} className="product-image" />
+        <div>
+          <img src={product.image} className="product-image" alt={`Product ${product.title}`} />
         </div>
-        <div className="row">
-          <div className="row-title">Name:</div>
-          <div className="row-body">{product.title}</div>
+        <div className="row bold">
+          {product.title}
         </div>
-        <div className="row">
-          <div className="row-title">Name:</div>
-          <div className="row-body">{product.description}</div>
-        </div>
-        <div className="row">
-          <div className="row-title">Price:</div>
-          <div className="row-body">{product.price}</div>
+        <div className={expandedDescription? "row expanded": "row"} onClick={showMore}>{product.description}</div>
+        <div className="row bold">
+          {formattedPrice}
         </div>
       </div>
     );
