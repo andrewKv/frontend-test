@@ -1,13 +1,19 @@
 .detail-container {
-  width: 30rem;
+  width: 90%;
   align-items: center;
-  margin-left: 32px;
+  justify-content: center;
   padding: 16px;
   background: #ffffff;
   max-height: 80vh; 
   min-height: 50vh;
   overflow: auto;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+@media only screen and (min-width: 600px) {
+  .detail-container {
+    margin-left: 32px;
+  }
 }
 
 .row {

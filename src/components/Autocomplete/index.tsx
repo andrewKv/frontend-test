@@ -18,9 +18,15 @@ export const Autocomplete = ({setProductShowing}:{setProductShowing: (product: P
   }, [setProductShowing]);
 
   const loadSuggestions = useCallback(async () => {
-    const response = await fetchSuggestions(searchTerm);
-    const top10Results = response.slice(0, 10)
-    setSuggestions(top10Results)
+    try {
+      const response = await fetchSuggestions(searchTerm)
+      if (response){
+        const top10Results = response.slice(0, 10)
+        setSuggestions(top10Results)
+      }
+    }catch (error) {
+      console.error(error)
+    }
   }, [searchTerm]);
 
   useEffect(() => {
@@ -34,7 +40,6 @@ export const Autocomplete = ({setProductShowing}:{setProductShowing: (product: P
 
     return () => clearTimeout(debouncedInput);
   }, [loadSuggestions, searchTerm]);
-  console.log(suggestions)
   return (
     <div className="search-container">
       <input
@@ -44,10 +49,11 @@ export const Autocomplete = ({setProductShowing}:{setProductShowing: (product: P
         placeholder="Search for a product"
         onChange={(e) => setSearchTerm(e.target.value)}
       />
+      {/* TODO: handle search suggestions overflow on phone with scroll? */}
       {suggestions.length > 0 && (
         <div className="suggestions-container">
           {suggestions.map((suggestion, index) => (
-            <button onClick={() => setShowDetailedItem(suggestion.id)} className="suggestion-item" key={`item-${index}`}>{suggestion.title} </button>
+            <button role='suggestion' onClick={() => setShowDetailedItem(suggestion.id)} className="suggestion-item" key={`item-${index}`}>{suggestion.title} </button>
           ))}
         </div>
       )}

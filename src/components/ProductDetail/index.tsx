@@ -3,8 +3,7 @@ import { ProductDetail } from "../../types";
 
 import "./styles.css";
 
-// mobile
-// tests
+// product card tests
 
 export const ProductCard = ({ product }: {product: ProductDetail})  => {
   const formattedPrice = product.price.toLocaleString('en-UK', {style: 'currency', currency: 'GBP'});
@@ -18,6 +17,7 @@ export const ProductCard = ({ product }: {product: ProductDetail})  => {
         <div>
           <img src={product.image} className="product-image" alt={`Product ${product.title}`} />
         </div>
+        {/* TODO: move text to flex-end */}
         <div className="row bold">
           {product.title}
         </div>
