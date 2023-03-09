@@ -1,3 +1,13 @@
+## To run:
+  - `yarn`
+  - `yarn start`
+  - `yarn server` (run in separate terminal)
+
+## To run tests:
+  `yarn test`
+
+all commands to be run in root folder*
+
 # Web Engineering Take Home Test
 
 This is a technical excercise involving both some refactoring of existing code and changes to meet some requirements. The exercise uses a React application which currently has no tests and a does not meet the given requirements.
