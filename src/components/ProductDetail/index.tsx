@@ -1,23 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ProductDetail } from "../../types";
+import { Spinner } from "../Spinner";
 
 import "./styles.css";
 
-// product card tests
-
 export const ProductCard = ({ product }: {product: ProductDetail})  => {
-  const formattedPrice = product.price.toLocaleString('en-UK', {style: 'currency', currency: 'GBP'});
   const [expandedDescription, setExpandedDescription] = useState<boolean>(false);
+  const [loadingImage, setLoadingImage] = useState<boolean>(true);
+
+  const formattedPrice = product.price.toLocaleString('en-UK', {style: 'currency', currency: 'GBP'});
+
+  const imageLoaded = () => {
+    setLoadingImage(false);
+  }
+  
   const showMore = () => {
     setExpandedDescription(!expandedDescription)
   }
 
+  useEffect(() => {
+    setLoadingImage(true)
+  }, [product.image])
+
   return (
       <div className="detail-container">
-        <div>
-          <img src={product.image} className="product-image" alt={`Product ${product.title}`} />
-        </div>
-        {/* TODO: move text to flex-end */}
+        {/* Image needs to be in the dom to actually load, so loading spinner is rendered above */}
+        {loadingImage && (<Spinner />)}     
+        <img src={product.image} className={loadingImage? "hidden" : "product-image"} alt={`Product ${product.title}`} onLoad={imageLoaded} />
+
         <div className="row bold">
           {product.title}
         </div>

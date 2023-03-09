@@ -35,6 +35,10 @@
   cursor: default;
 }
 
+.hidden {
+  display: none;
+}
+
 .product-image {
   display: flex;
   max-width: 40%;
